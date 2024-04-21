@@ -1,4 +1,4 @@
-# RobustSkinWeightsTransferCode
+# Robust Skin Weights Transfer via Weight Inpainting
 ![Teaser](https://www.dgp.toronto.edu/~rinat/projects/RobustSkinWeightsTransfer/teaser.jpg)
 Sample code for the Siggraph Asia 2023 Technical Communications paper - [Robust Skin Weights Transfer via Weight Inpainting](https://www.dgp.toronto.edu/~rinat/projects/RobustSkinWeightsTransfer/index.html)
 
