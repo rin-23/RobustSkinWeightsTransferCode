@@ -64,7 +64,7 @@ def normalize_vec(v):
 
 def find_matches_closest_surface(V1, F1, N1, V2, F2, N2, W1, dDISTANCE_THRESHOLD_SQRD, dANGLE_THRESHOLD_DEGREES):
     """
-    Find all vertices on the target mesh for which we found a match on the source mesh.
+    For each vertex on the target mesh find a match on the source mesh.
 
     Args:
         V1: #V1 by 3 source mesh vertices
@@ -107,7 +107,8 @@ def find_matches_closest_surface(V1, F1, N1, V2, F2, N2, W1, dDISTANCE_THRESHOLD
 
 def inpaint(V2, F2, W2, Matched):
     """
-    Find all vertices on the target mesh for which we found a match on the source mesh.
+    Inpaint weights for all the vertices on the target mesh for which  we didnt 
+    find a good match on the source (i.e. Matched[i] == False).
 
     Args:
         V2: #V2 by 3 target mesh vertices
