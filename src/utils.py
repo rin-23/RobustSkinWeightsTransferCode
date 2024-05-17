@@ -104,6 +104,9 @@ def find_matches_closest_surface(V1, F1, N1, V2, F2, N2, W1, dDISTANCE_THRESHOLD
 
     return Matched, W2
 
+def is_valid_array(sparse_matrix):
+    has_invalid_numbers = np.isnan(sparse_matrix.data).any() or np.isinf(sparse_matrix.data).any()
+    return not has_invalid_numbers
 
 def inpaint(V2, F2, W2, Matched):
     """
@@ -118,6 +121,7 @@ def inpaint(V2, F2, W2, Matched):
 
     Returns:
         W_inpainted: #V2 by num_bones, final skinning weights where we inpainted weights for all vertices i where Matched[i] == False
+        success: true if inpainting succeeded, false otherwise
     """
 
     # Compute the laplacian
@@ -125,8 +129,20 @@ def inpaint(V2, F2, W2, Matched):
     M = igl.massmatrix(V2, F2, igl.MASSMATRIX_TYPE_VORONOI)
     Minv = sp.sparse.diags(1 / M.diagonal())
 
-    Q2 = -L + L*Minv*L
+    is_valid = is_valid_array(L)
+    if (not is_valid):
+        print("[Error] Laplacian is invalid:")
 
+    is_valid = is_valid_array(Minv)
+    if (not is_valid):
+        print("[Error] Mass matrix is invalid:")
+
+    Q = -L + L*Minv*L
+
+    is_valid = is_valid_array(Q)
+    if (not is_valid):
+        print("[Error] System matrix is invalid:")
+    
     Aeq = sp.sparse.csc_matrix((0, 0))
     Beq = np.array([])
     B = np.zeros(shape = (L.shape[0], W2.shape[1]))
@@ -135,9 +151,9 @@ def inpaint(V2, F2, W2, Matched):
     b = b[Matched]
     bc = W2[Matched,:]
 
-    results, W_inpainted = igl.min_quad_with_fixed(Q2, B, b, bc, Aeq, Beq, True)
+    results, W_inpainted = igl.min_quad_with_fixed(Q, B, b, bc, Aeq, Beq, True)
 
-    return W_inpainted
+    return W_inpainted, results
 
 def smooth(V2, F2, W2, Matched, dDISTANCE_THRESHOLD, num_smooth_iter_steps=10, smooth_alpha=0.2):
     """
