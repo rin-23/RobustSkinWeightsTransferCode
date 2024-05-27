@@ -27,6 +27,9 @@ the meshes with any other meshes and load the source skinning weights.
 the body to cloth and write the result of the transfer into another fbx that can 
 be loaded in other 3D software (Blender, Unreal, etc.).
 
+## Other 3rd party implementations
+Blender addon (by Sent From Space) - https://sentfromspacevr.gumroad.com/l/robust-weight-transfer
+
 ## Cite
 If you use this code for an academic publication, cite it as:
 ```bib
