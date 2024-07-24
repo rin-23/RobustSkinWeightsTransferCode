@@ -168,7 +168,7 @@ bool inpaint(const Eigen::MatrixXd& V2, const Eigen::MatrixXi& F2, const Eigen::
     
     bool result = igl::min_quad_with_fixed_solve(mqwf,B,bc,Beq,W_inpainted);
 
-    return true;
+    return result;
 }
 
 
