@@ -19,8 +19,9 @@ From within the `build` directory just issue:
 
     ./skintransfer
 
-This will run main function and print out the resulting inpainted weights matrix.
-You can read the main function to learn how to use transfer method.
+This will run **main** function on a sample data and print out the resulting inpainted weights matrix.
+You can read the **main** function to learn how to use the **robust_skin_weights_transfer**
+function.
 
 ## Dependencies
 
