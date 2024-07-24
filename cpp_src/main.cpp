@@ -11,6 +11,7 @@
 #include <igl/adjacency_list.h>
 
 #include <cmath>
+#include <vector>
 #include <queue>
 #include <set>
 
